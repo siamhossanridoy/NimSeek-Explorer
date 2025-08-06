@@ -49,4 +49,4 @@ NimSeek Explorer ব্যবহার করার সময়ও আপনি
 ---
 
 ### 🎥 নিমসিক এক্সপ্লোরার ভিডিও ডেমো
-(<iframe width="1905" height="742" src="https://www.youtube.com/embed/ZDFeRayiORo" title="NimSeek Explorer: The Multi-Searcher Extension | NimSeek Multi Searcher Full Overview #NimSeek" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="1905" height="742" src="https://www.youtube.com/embed/ZDFeRayiORo" title="NimSeek Explorer: The Multi-Searcher Extension | NimSeek Multi Searcher Full Overview #NimSeek" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
