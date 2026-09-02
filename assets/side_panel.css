@@ -1,0 +1,197 @@
+:root {
+  --bg: #e3e3e3;
+  --bg-alt: #d6d6d6;
+  --gap: 2px;
+  --hover: #e0e5ec;
+  --search-bg: #ffffff;
+  --search-fg: #2f3640;
+  --active: #393939;
+  --primary-btn: linear-gradient(135deg, #5b677c, #ffffff);
+  --quick-btn-hover: linear-gradient(135deg, #ffffff, #5b677c);
+  
+}
+
+body {
+  font-size: 15px;
+  font-family: 'Segoe UI', Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  color: #2b2b2b;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  box-sizing: border-box;
+}
+
+input[type=button]:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+iframe:not(:first-of-type) {
+  border-top: solid 3px var(--bg-alt);
+}
+
+iframe:not([src]) {
+  display: none;
+}
+
+body[state="homepage"] iframe {
+  display: none;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  border-top: solid 1px var(--bg-alt);
+  padding: var(--gap);
+  gap: var(--gap);
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+  border-radius: 12px 12px 0 0;
+}
+
+.search-container {
+  border-radius: 30px;
+  color: var(--search-fg);
+  background-color: var(--search-bg);
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  align-items: center;
+  padding: 5px 1px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+}
+
+.search-container:focus-within {
+  outline: solid 2px var(--active);
+  box-shadow: 0 0 12px rgba(30, 144, 255, 0.3);
+}
+
+.footer input[type=search] {
+  border: none;
+  padding-inline: calc(var(--gap) * 2);
+  outline: none;
+  background-color: transparent;
+  font-size: 14px;
+}
+
+.footer input[type=button] {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  width: 36px;
+  height: 36px;
+  background-size: 18px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.footer input:hover {
+  background-color: var(--hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#actions {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#reset {
+  background-size: 18px;
+  width: 36px;
+  height: 36px;
+  transition: opacity 200ms ease-in-out, transform 0.25s ease;
+  background-image: url('../icons/home.svg');
+}
+
+body[state="homepage"] #forward,
+body[state="homepage"] #refresh {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+#active {
+  font-size: 80%;
+  background-color: var(--active);
+  color: #fff;
+  border-radius: 50%;
+  width: 15px;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+margin-right: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: #2f3640;
+}
+
+#intro img {
+  width: 100px;
+  border-radius: 20px;
+}
+
+#intro p {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 1rem;
+  line-height: 1.5;
+  color: #57606f;
+}
+
+body:not([state="homepage"]) #intro {
+  display: none;
+}
+
+#quick-links {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); 
+  gap: 12px; /* একটু গ্যাপ বাড়ালে দেখতে ভালো লাগে */
+}
+
+#quick-links button {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px; /* চারকোনা একটু রাউন্ড শেপ */
+  background: #969696;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#quick-links button img {
+  width: 24px; /* আইকনের সাইজ */
+  height: 24px;
+  pointer-events: none; /* ইমেজে ক্লিক পড়লেও যেন বাটন কাজ করে */
+}
+
+#quick-links button:hover {
+  background: #c2c2c2;
+  transform: scale(1.1);
+}
+

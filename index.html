@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tab</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <!-- ⚡ Instant background restore — runs before paint, no flash -->
+    <script>
+    (function(){
+        try {
+            chrome.storage.local.get(
+                ['backgroundImage','backgroundColor','backgroundFilter','theme'],
+                function(r){
+                    var b = document.body;
+                    // Background
+                    if(r.backgroundImage){
+                        // gradient or image url
+                        if(r.backgroundImage.startsWith('linear-gradient') ||
+                           r.backgroundImage.startsWith('radial-gradient') ||
+                           r.backgroundImage.startsWith('conic-gradient')  ||
+                           r.backgroundImage.startsWith('repeating-')){
+                            b.style.backgroundImage = r.backgroundImage;
+                        } else {
+                            b.style.backgroundImage = 'url('+r.backgroundImage+')';
+                        }
+                    } else if(r.backgroundColor){
+                        b.style.backgroundColor = r.backgroundColor;
+                    }
+                    // Effect class
+                    if(r.backgroundFilter && r.backgroundFilter !== 'none'){
+                        b.classList.add(r.backgroundFilter);
+                    }
+                    // Theme
+                    if(r.theme === 'dark') b.classList.add('dark');
+                }
+            );
+        } catch(e){}
+    })();
+    </script>
+</head>
+<body>
+    
+    
+    <div class="container">
+        
+        
+        
+        <h1 > 
+            <!-- ERROR: Likely incorrect image path or missing file -->
+            <img  src="icons/sfsfas.png" alt="Site Logo" >
+        </h1> <br>
+        
+       <div class="search-box" id="searchBox">
+    <button id="searchButton" aria-label="Search">
+        <span id="search-icon-display">🔍︎</span>
+    </button>
+    
+    <input type="text" id="searchInput" placeholder="Search or type a web URL..." autocomplete="off" aria-label="Search query or URL">
+    
+    <button id="clearSearchBtn" class="clear-btn hidden" aria-label="Clear search input">⨉</button>
+
+    <button id="micButton" class="mic-btn" aria-label="Voice Search" title="Search by Voice">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="22"></line>
+        </svg>
+    </button>
+
+    <div class="history-dropdown hidden" id="historyDropdown" role="listbox" aria-live="polite">
+        <ul id="historyList"></ul>
+    </div>
+</div>
+        
+        <div style="text-align: center;" class="shortcuts-container">
+            <div id="shortcutsGrid" class="shortcuts-grid"></div> 
+            
+            <!-- Inconsistent styling with inline CSS -->
+            <button  id="addShortcutBtn" title="Add Shortcut" aria-label="Add new shortcut">+</button>
+        </div>
+    </div>
+    
+    <footer> 
+        
+        <div class="footer-left">
+            
+            <div class="settings">
+            <!-- Settings Button -->
+                <button id="settingsBtn" title="Open Settings" aria-label="Open settings"> 
+                   ⚙️
+                </button>
+
+                    <!-- Settings Popup -->
+                <div id="settingsPopup" class="popup hidden">
+                    <div class="popup-header">
+                        <h4>Settings</h4><br>
+                        
+                    </div>
+
+                                <button id="clearHistoryBtn" title="Clear Search History" aria-label="Clear search history">
+                                    <span class="icon">✨</span>History <span id="totalSearchCountDisplay" class="search-count-display"></span>
+                                </button>
+                                <div class="popup-section">
+                                
+                            </div>
+                            
+
+                            <div class="popup-section">
+                                <button id="themesBtn" title="Manage Themes" aria-label="Manage themes">
+                                    <span class="icon">🎨</span>Themes
+                                </button>
+
+                                <button id="themeToggle" title="Toggle Dark Mode" aria-label="Toggle theme">
+                                    <span class="icon">🌙</span>Dark Mode
+                                </button>
+
+                                <button id="exportSettingsBtn" class="settings-btn">
+                              <span class="icon">📥</span>Export
+                              </button>
+
+                           <button id="importSettingsBtn" class="settings-btn">
+                              <span class="icon">📤</span>Import
+                           </button>
+
+                           <input type="file" id="importFileInput" accept=".json,application/json" style="display: none;">
+
+                                <button title="About Me" aria-label="Open Guide" class="guide-me-bin">
+                                    <a href="https://siamhossanridoy.rf.gd/" target="_self">
+                                        <span class="icon">ℹ️</span>About Me
+                                    </a>
+                                </button>
+                                
+
+            
+   
+                            </div>
+                        </div>
+
+                <!-- Themes Popup -->
+                <div id="themesPopup" class="popup hidden">
+
+                    <!-- Header -->
+                    <div class="tp-header">
+                        <div class="tp-header-left">
+                            <span class="tp-header-icon">◑</span>
+                            <span class="tp-title">Appearance</span>
+                            <button  id="removeBackgroundBtn" class="tp-remove-btn" title="Remove Background" aria-label="Remove background image">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                            Reset
+                        </button>
+                        </div>
+                        
+                    </div>
+                    
+
+                    <!-- Tab Pills -->
+                    <div class="tp-tabs" role="tablist">
+                        <button class="tp-tab tp-tab-active" data-tab="colors"  role="tab" aria-selected="true">
+                            <span class="tp-tab-icon">🔥</span> Colors
+                        </button>
+                        <button class="tp-tab" data-tab="presets" role="tab" aria-selected="false">
+                            <span class="tp-tab-icon">🖼</span> Presets
+                        </button>
+                        <button class="tp-tab" data-tab="upload"  role="tab" aria-selected="false">
+                            <span class="tp-tab-icon">↑</span> Upload
+                        </button>
+                        <button class="tp-tab" data-tab="filters" role="tab" aria-selected="false">
+                            <span class="tp-tab-icon">✦</span> Filters
+                        </button>
+                    </div>
+
+                    <!-- ── Tab: Colors ── -->
+                    <div class="tp-panel" id="tp-colors" role="tabpanel">
+                        <p class="tp-section-label">Solid Colors</p>
+                        <div class="color-grid" id="colorGrid"></div>
+                    </div>
+
+                    <!-- ── Tab: Presets ── -->
+                    <div class="tp-panel tp-hidden" id="tp-presets" role="tabpanel">
+                        <p class="tp-section-label">Background Images</p>
+                        <div class="preset-grid" id="presetGrid"></div>
+                    </div>
+
+                    <!-- ── Tab: Upload ── -->
+                    <div class="tp-panel tp-hidden" id="tp-upload" role="tabpanel">
+                        <label for="backgroundImageInput" class="tp-upload-zone" aria-describedby="image-instruction">
+                            <div class="tp-upload-inner">
+                                <div class="tp-upload-circle">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 16V8m0 0l-3 3m3-3l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 16.5A4.5 4.5 0 0017 8a1 1 0 01-.95-.68A7 7 0 104.14 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                                </div>
+                                <span class="tp-upload-title">Drop image or click to browse</span>
+                                <span class="tp-upload-hint">JPG · PNG · GIF · WEBP · SVG · max 5 MB</span>
+                            </div>
+                            <input type="file" id="backgroundImageInput" accept="image/jpeg,image/png,image/gif,image/webp,image/bmp,image/svg+xml,image/tiff,image/x-icon,image/heic,image/heif,image/avif" aria-describedby="image-instruction">
+                        </label>
+                        <p id="image-instruction" class="instruction"></p>
+                    </div>
+
+                    <!-- ── Tab: Filters ── -->
+                    <div class="tp-panel tp-hidden" id="tp-filters" role="tabpanel">
+                        <p class="tp-section-label">Background Effects <span class="tp-effect-hint">Hover to preview</span></p>
+                        <div class="tp-filter-grid">
+                            <button class="tp-filter-btn tp-filter-active" data-filter="none"><span class="tp-fp tp-fp-none"></span><span>None</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-blueprint"><span class="tp-fp tp-fp-blueprint"></span><span>Blueprint</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-bright"><span class="tp-fp tp-fp-bright"></span><span>Bright</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-fire"><span class="tp-fp tp-fp-fire"></span><span>Fire</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-aurora"><span class="tp-fp tp-fp-aurora"></span><span>Aurora</span></button>
+
+                            <button class="tp-filter-btn" data-filter="fx-dark"><span class="tp-fp tp-fp-dark"></span><span>Dark</span></button>
+
+                            <button class="tp-filter-btn" data-filter="fx-spin"><span class="tp-fp tp-fp-spin"></span><span>Spin</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-prism"><span class="tp-fp tp-fp-prism"></span><span>Prism</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-flip"><span class="tp-fp tp-fp-flip"></span><span>Flip</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-rainbow"><span class="tp-fp tp-fp-rainbow"></span><span>Rainbow</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-blur"><span class="tp-fp tp-fp-blur"></span><span>Blur</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-gray"><span class="tp-fp tp-fp-gray"></span><span>Gray</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-sepia"><span class="tp-fp tp-fp-sepia"></span><span>Sepia</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-float"><span class="tp-fp tp-fp-float"></span><span>Float</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-shake"><span class="tp-fp tp-fp-shake"></span><span>Shake</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-shimmer"><span class="tp-fp tp-fp-shimmer"></span><span>Shimmer</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-fade"><span class="tp-fp tp-fp-fade"></span><span>Fade</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-slide"><span class="tp-fp tp-fp-slide"></span><span>Slide</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-neon"><span class="tp-fp tp-fp-neon"></span><span>Neon</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-matrix"><span class="tp-fp tp-fp-matrix"></span><span>Matrix</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-bounce"><span class="tp-fp tp-fp-bounce"></span><span>Bounce</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-vivid"><span class="tp-fp tp-fp-vivid"></span><span>Vivid</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-snow2"><span class="tp-fp tp-fp-snow2"></span><span>Snow</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-lava"><span class="tp-fp tp-fp-lava"></span><span>Lava</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-retro"><span class="tp-fp tp-fp-retro"></span><span>Retro</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-pixel"><span class="tp-fp tp-fp-pixel"></span><span>Pixel</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-smoke"><span class="tp-fp tp-fp-smoke"></span><span>Smoke</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-lightning"><span class="tp-fp tp-fp-lightning"></span><span>Storm</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-crt"><span class="tp-fp tp-fp-crt"></span><span>CRT</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-vapor"><span class="tp-fp tp-fp-vapor"></span><span>Vapor</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-infrared"><span class="tp-fp tp-fp-infrared"></span><span>Infra</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-xray"><span class="tp-fp tp-fp-xray"></span><span>X-Ray</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-oil"><span class="tp-fp tp-fp-oil"></span><span>Oil</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-crystal"><span class="tp-fp tp-fp-crystal"></span><span>Crystal</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-molten"><span class="tp-fp tp-fp-molten"></span><span>Molten</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-ink"><span class="tp-fp tp-fp-ink"></span><span>Ink</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-frost2"><span class="tp-fp tp-fp-frost2"></span><span>Frost</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-candy"><span class="tp-fp tp-fp-candy"></span><span>Candy</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-toxic"><span class="tp-fp tp-fp-toxic"></span><span>Toxic</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-cotton"><span class="tp-fp tp-fp-cotton"></span><span>Cotton</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-sunset2"><span class="tp-fp tp-fp-sunset2"></span><span>Sunset</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-plasma"><span class="tp-fp tp-fp-plasma"></span><span>Plasma</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-galaxy"><span class="tp-fp tp-fp-galaxy"></span><span>Galaxy</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-eclipse"><span class="tp-fp tp-fp-eclipse"></span><span>Eclipse</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-neon2"><span class="tp-fp tp-fp-neon2"></span><span>Neon+</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-fire2"><span class="tp-fp tp-fp-fire2"></span><span>Fire+</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-ice"><span class="tp-fp tp-fp-ice"></span><span>Ice</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-watercolor"><span class="tp-fp tp-fp-watercolor"></span><span>Paint</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-circuit"><span class="tp-fp tp-fp-circuit"></span><span>Circuit</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-stardust"><span class="tp-fp tp-fp-stardust"></span><span>Stars+</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-thermal"><span class="tp-fp tp-fp-thermal"></span><span>Thermal</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-diagonal"><span class="tp-fp tp-fp-diagonal"></span><span>Lines</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-confetti"><span class="tp-fp tp-fp-confetti"></span><span>Confetti</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-acid"><span class="tp-fp tp-fp-acid"></span><span>Acid</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-duotone"><span class="tp-fp tp-fp-duotone"></span><span>Duotone</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-marble"><span class="tp-fp tp-fp-marble"></span><span>Marble</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-chalk"><span class="tp-fp tp-fp-chalk"></span><span>Chalk</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-paper"><span class="tp-fp tp-fp-paper"></span><span>Paper</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-mono"><span class="tp-fp tp-fp-mono"></span><span>Mono</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-rust"><span class="tp-fp tp-fp-rust"></span><span>Rust</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-cobalt"><span class="tp-fp tp-fp-cobalt"></span><span>Cobalt</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-amber2"><span class="tp-fp tp-fp-amber2"></span><span>Amber</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-jade"><span class="tp-fp tp-fp-jade"></span><span>Jade</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-crimson"><span class="tp-fp tp-fp-crimson"></span><span>Crimson</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-sapphire"><span class="tp-fp tp-fp-sapphire"></span><span>Sapphire</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-ruby"><span class="tp-fp tp-fp-ruby"></span><span>Ruby</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-topaz"><span class="tp-fp tp-fp-topaz"></span><span>Topaz</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-opal"><span class="tp-fp tp-fp-opal"></span><span>Opal</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-sand2"><span class="tp-fp tp-fp-sand2"></span><span>Sand</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-slate"><span class="tp-fp tp-fp-slate"></span><span>Slate</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-wine"><span class="tp-fp tp-fp-wine"></span><span>Wine</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-coral"><span class="tp-fp tp-fp-coral"></span><span>Coral</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-teal2"><span class="tp-fp tp-fp-teal2"></span><span>Teal</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-magenta"><span class="tp-fp tp-fp-magenta"></span><span>Magenta</span></button>
+                            <button class="tp-filter-btn" data-filter="fx-lemon"><span class="tp-fp tp-fp-lemon"></span><span>Lemon</span></button>
+                        </div>
+                        <select id="backgroundFilter" aria-label="Select background filter" style="display:none">
+                            <option value="none">None</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="engine-select" title="Search Engines" role="combobox" aria-haspopup="listbox">
+
+    <!-- Engine Button -->
+    <button id="engineBtn"
+        aria-label="Select search engine"
+        aria-expanded="false"
+        aria-controls="enginePopup">
+
+        <span class="selected-engine">Google</span>
+        <span class="dropdown-icon" aria-hidden="true">▼</span>
+
+    </button>
+
+
+    <!-- Engine Popup -->
+    <div id="enginePopup" class="popup hidden" role="listbox" aria-label="Search engine options">
+
+
+        <!-- ================= TOP ENGINES ================= -->
+        <div class="engine-group" aria-label="Top Search Engines">
+
+            <div class="group-title top-title">
+                <img src="icons/topuse.ico" class="engine-title" alt="">
+                <b>Top Use ↡</b>
+            </div>
+
+            <div class="engine-item" data-engine="google" role="option" aria-selected="true" tabindex="0">
+                <img src="icons/google.ico" class="engine-icon" alt=""> Google
+            </div>
+
+            <div class="engine-item" data-engine="bing" role="option">
+                <img src="icons/bing.ico" class="engine-icon" alt=""> Bing
+            </div>
+
+            <div class="engine-item" data-engine="duckduckgo" role="option">
+                <img src="icons/duckduckgo.ico" class="engine-icon" alt=""> DuckDuckGo
+            </div>
+
+            <div class="engine-item" data-engine="yahoo" role="option">
+                <img src="icons/yahoo.ico" class="engine-icon" alt=""> Yahoo
+            </div>
+
+            <div class="engine-item" data-engine="brave" role="option">
+                <img src="icons/brave.ico" class="engine-icon" alt=""> Brave
+            </div>
+
+            <div class="engine-item" data-engine="yandex" role="option">
+                <img src="icons/yandex.ico" class="engine-icon" alt=""> Yandex
+            </div>
+
+            <div class="engine-item" data-engine="qwant" role="option">
+                <img src="icons/qwant.ico" class="engine-icon" alt=""> Qwant
+            </div>
+
+            <div class="engine-item" data-engine="startpage" role="option">
+                <img src="icons/startpage.ico" class="engine-icon" alt=""> Startpage
+            </div>
+
+            <div class="engine-item" data-engine="youtube" role="option">
+                <img src="icons/youtube.ico" class="engine-icon" alt=""> YouTube
+            </div>
+
+            <div class="engine-item" data-engine="perplexity" role="option">
+                <img src="icons/perplexity.ico" class="engine-icon" alt=""> Perplexity
+            </div>
+
+            <div class="engine-item" data-engine="felo" role="option">
+                <img src="icons/felo.svg" class="engine-icon" alt=""> Felo AI
+            </div>
+
+            <div class="engine-item" data-engine="copilot" role="option">
+                <img src="icons/copilot.ico" class="engine-icon" alt=""> Copilot
+            </div>
+
+            <div class="engine-item" data-engine="qwen" role="option">
+                <img src="icons/qwen.ico" class="engine-icon" alt=""> Qwen
+            </div>
+
+        </div>
+
+
+        <!-- ================= AI CHAT ================= -->
+        <div class="engine-group" aria-label="AI ChatBot">
+
+            <div class="group-title ai-title">
+                <img src="icons/8943377.png" class="engine-title" alt="">
+                <b>AI ChatBot ↡</b>
+            </div>
+
+            <div class="engine-item" data-engine="grok" role="option">
+                <img src="icons/grok.ico" class="engine-icon" alt=""> Grok
+            </div>
+
+            <div class="engine-item" data-engine="scira" role="option">
+                <img src="icons/scira.ico" class="engine-icon" alt=""> Scira
+            </div>
+
+
+            <div class="engine-item" data-engine="you" role="option">
+                <img src="icons/youcom.ico" class="engine-icon" alt=""> You.com
+            </div>
+
+            <div class="engine-item" data-engine="chatgpt" role="option">
+                <img src="icons/chatgpt.ico" class="engine-icon" alt=""> ChatGPT
+            </div>
+
+            <div class="engine-item" data-engine="sigma" role="option">
+                <img src="icons/1737888523296-SigmaLogoSquare1.png" class="engine-icon" alt=""> Sigma
+            </div>
+
+            <div class="engine-item" data-engine="mistral" role="option">
+                <img src="icons/mistral.ico" class="engine-icon" alt=""> Mistral.ai
+            </div>
+
+            <div class="engine-item" data-engine="iask" role="option">
+                <img src="icons/iask.ico" class="engine-icon" alt=""> iAsk
+            </div>
+
+            <div class="engine-item" data-engine="yep" role="option">
+                <img src="icons/yep.ico" class="engine-icon" alt=""> Yep
+            </div>
+
+            <div class="engine-item" data-engine="blackbox" role="option">
+                <img src="icons/blackbox.ico" class="engine-icon" alt=""> Blackbox
+            </div>
+
+
+        </div>
+
+
+        <!-- ================= SEARCH ENGINES ================= -->
+        <div class="engine-group" aria-label="Search Engines">
+
+            <div class="group-title search-title">
+                <img src="icons/search-engine.ico" class="engine-title" alt="">
+                <b>Search Engines ↡</b>
+            </div>
+
+            <div class="engine-item" data-engine="ecosia" role="option">
+                <img src="icons/ecosia.ico" class="engine-icon" alt=""> Ecosia
+            </div>
+
+            <div class="engine-item" data-engine="aol" role="option">
+                <img src="icons/aol.ico" class="engine-icon" alt=""> AOL
+            </div>
+
+            <div class="engine-item" data-engine="kagi" role="option">
+                <img src="icons/Kagi_Search_Engine_Icon.png" class="engine-icon" alt=""> Kagi
+            </div>
+
+            <div class="engine-item" data-engine="presearch" role="option">
+                <img src="icons/presearch.ico" class="engine-icon" alt=""> Presearch
+            </div>
+
+            <div class="engine-item" data-engine="archive" role="option">
+                <img src="icons/Internet_Archive_logotype.png" class="engine-icon" alt=""> Archive
+            </div>
+
+        </div>
+
+
+        <!-- ================= OTHERS ================= -->
+        <div class="engine-group" aria-label="Others">
+
+            <div class="group-title">
+                <img src="icons/Others.ico" class="engine-title" alt="">
+                <b>Others ↡</b>
+            </div>
+
+            <div class="engine-item" data-engine="wikipedia" role="option">
+                <img src="icons/wikipedia.ico" class="engine-icon" alt=""> Wikipedia
+            </div>
+
+            <div class="engine-item" data-engine="reddit" role="option">
+                <img src="icons/reddit.ico" class="engine-icon" alt=""> Reddit
+            </div>
+
+            <div class="engine-item" data-engine="facebook" role="option">
+                <img src="icons/facebook.ico" class="engine-icon" alt=""> Facebook
+            </div>
+
+            <div class="engine-item" data-engine="pinterest" role="option">
+                <img src="icons/pinterest.ico" class="engine-icon" alt=""> Pinterest
+            </div>
+
+            <div class="engine-item" data-engine="github" role="option">
+                <img src="icons/github.ico" class="engine-icon" alt=""> GitHub
+            </div>
+
+            <div class="engine-item" data-engine="dailymotion" role="option">
+                <img src="icons/dailymotion.ico" class="engine-icon" alt=""> Dailymotion
+            </div>
+
+            <div class="engine-item" data-engine="x" role="option">
+                <img src="icons/x.ico" class="engine-icon" alt=""> X.com
+            </div>
+
+            <div class="engine-item" data-engine="threads" role="option">
+                <img src="icons/threads-app-icon.png" class="engine-icon" alt=""> Threads
+            </div>
+
+            <div class="engine-item" data-engine="vimeo" role="option">
+                <img src="icons/vimeo.ico" class="engine-icon" alt=""> Vimeo
+            </div>
+
+            <div class="engine-item" data-engine="rumble" role="option">
+                <img src="icons/rumble.ico" class="engine-icon" alt=""> Rumble
+            </div>
+
+            <div class="engine-item" data-engine="tiktok" role="option">
+                <img src="icons/tiktok.ico" class="engine-icon" alt=""> TikTok
+            </div>
+
+            <div class="engine-item" data-engine="twitch" role="option">
+                <img src="icons/3991943.png" class="engine-icon" alt=""> Twitch
+            </div>
+
+            <div class="engine-item" data-engine="rutube" role="option">
+                <img src="icons/Rutube_icon.svg.png" class="engine-icon" alt=""> Rutube
+            </div>
+
+            <div class="engine-item" data-engine="bilibili" role="option">
+                <img src="icons/bilibili.ico" class="engine-icon" alt=""> Bilibili
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+ <!-- Buttons -->
+               
+              
+               
+    <div  class="tools-menu" style="position: relative; display: inline-block;">
+    <button title="Default New Tab" id="btn-newtab" >
+                     <img width="15px" src="icons/299638-200.png" alt="">
+     </button>
+    <button  title="NimSeek Tools" id="btn-tools" aria-label="Open Tools">
+        <span style="font-size: 13px;">🛠️</span> 
+    </button>
+
+    <div id="toolsPopup" class="popup hidden">
+        <div class="popup-header">
+            <h4>NimSeek Tools</h4>
+        </div>
+       <div id="toolsList" class="tools-single-item-container"></div> 
+    </div>
+</div>
+                
+
+
+   
+            </div>
+            
+        </div>
+        
+        <div class="footer-right">
+            
+            <div class="apps-menu">
+                <!-- Inconsistent styling with inline CSS -->
+                <button style="font-size: 15px;;" id="appsBtn" title="Apps Menu" aria-label="Open apps menu"><b>⁝⁝⁝</b></button>
+                <div id="appsPopup" class="popup hidden">
+                    <div class="popup-header">
+                        <h4>Apps</h4>
+                    </div>
+                    <div id="appsList" class="apps-grid"></div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </footer>
+    <div id="shortcutModal" class="modal hidden" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <h3 id="modalTitle">Add Shortcut</h3>
+            <label for="shortcutName">Name:</label>
+            <input type="text" id="shortcutName" placeholder="e.g., Example" aria-required="true">
+            <label for="shortcutUrl">URL:</label>
+            <input type="text" id="shortcutUrl" placeholder="e.g., https://example.com/" aria-required="true">
+            <div class="modal-actions">
+                <button id="saveShortcutBtn" aria-label="Save shortcut">Save</button>
+                <button id="cancelShortcutBtn" aria-label="Cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+  <script type="text/javascript" src="assets/script.js"></script>
+  <script type="text/javascript" src="assets/876876.js"></script>
+
+</body>
+</html>

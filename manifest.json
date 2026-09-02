@@ -1,0 +1,114 @@
+{
+  "manifest_version": 3,
+  "name": "NimSeek Explorer",
+  "version": "1.0",
+"description": "NimSeek Explorer transforms your New Tab into a premium smart hub—featuring Multi-Search across 20+ engines, SideOpen side-panel browsing, and a quick-launch Popup dashboard. Plus built-in productivity tools like NimSeek Notes, Pomodoro Timer, and Spinner, all in one place, making your work faster, easier, and more efficient.", 
+ "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/32.png",
+    "48": "icons/icon48.png",
+    "64": "icons/64.png",
+    "128": "icons/icon128.png",
+    "256": "icons/256.png",
+    "512": "icons/512.png"
+  },
+
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+
+ 
+
+"permissions": [
+  "storage",
+  "contextMenus",
+  "commands",
+  "sidePanel",
+  "declarativeNetRequestWithHostAccess",
+  "webRequest",
+  "history",
+  "tabs",
+  "unlimitedStorage"
+],
+
+"host_permissions": [
+  "*://*/*"
+],
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "side_panel": {
+    "default_path": "side_panel.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_start",
+      "world": "MAIN",
+      "js": [
+        "assets/user-script.js"
+      ]
+    },
+    {
+      "matches": ["*://*/*"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_start",
+      "js": [
+        "assets/detect.js"
+      ]
+    }
+  ],
+
+  "action": {
+    "default_title": "NimSeek Dashboard",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_popup": "popup.html"
+  },
+
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Open NimSeek Dashboard"
+    }
+  },
+
+
+"web_accessible_resources": [
+  {
+    "resources": [
+      "assets/images/*",
+      "assets/css/9/*",
+      "assets/js/9/*",
+      "assets/js/*",
+      "assets/*",
+      "icons/wallpepar/*",
+      "icons/*",
+      "fonts/*",
+      "NS/*"
+    ],
+    "matches": ["<all_urls>"]
+  }
+],
+
+  "content_security_policy": {
+  "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://ac.duckduckgo.com"
+},
+
+  "minimum_chrome_version": "114",
+  "incognito": "split"
+}

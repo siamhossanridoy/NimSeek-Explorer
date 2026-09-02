@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NimSeek Pomodoro</title>
+    <link rel="stylesheet" href="../assets/Pomodoro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Simple Gradient Background -->
+    <div class="bg-gradient"></div>
+    
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Top Bar with Date & Time -->
+        <div class="top-bar">
+            <div class="datetime">
+                <div class="time" id="currentTime">10:14 PM</div>
+                <div class="date" id="currentDate">Monday, February 21, 2026</div>
+            </div>
+        </div>
+
+        <!-- Timer Section -->
+        <div class="timer-wrapper">
+            <!-- Mode Badge with Time Edit -->
+            <div class="mode-badge-group">
+                <div class="mode-badge" id="modeBadge" title="Click to change mode">
+                    <span id="modeText">focus</span>
+                    <svg class="mode-arrow" width="12" height="12" viewBox="0 0 12 12">
+                        <path d="M6 9L2 5h8L6 9z" fill="currentColor"/>
+                    </svg>
+                </div>
+                
+                <div class="time-edit" id="timeEdit" title="Click to edit time">
+                    <span id="displayMinutes">25</span>
+                    <span>min</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 20h9M16.5 3.5L20 7l-9 9-4-4 9-9z"/>
+                    </svg>
+                </div>
+
+                 <!-- Quick Action Buttons -->
+            <div class="quick-actions">
+                <button class="quick-action" id="resetBtn" title="Reset timer (R)">
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path d="M17.65 6.35A8 8 0 1 0 19 12h-2a6 6 0 1 1-2.23-4.69l2.64-2.64 1.42 1.42-3.54 3.54-3.54-3.54 1.41-1.41L17.65 6.35z" fill="currentColor"/>
+                    </svg>
+                </button>
+                <button style="display: none;" class="quick-action" id="skipBtn" title="Skip to next (S)">
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+            </div> 
+            
+            <!-- Big Timer -->
+            <div class="timer">
+                <span id="minutes">25</span>
+                <span class="colon">:</span>
+                <span id="seconds">00</span>
+            </div>
+            
+            <!-- Session Progress -->
+            <div class="session-progress">
+                <div class="progress-dots" id="progressDots"></div>
+                <span class="progress-label" id="progressLabel">0/8 sessions</span>
+            </div>
+            
+            <!-- Unified Control Button -->
+            <button class="main-control" id="mainControlBtn">
+                <svg class="play-icon" width="32" height="32" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7L8 5z" fill="currentColor"/>
+                </svg>
+                <svg class="pause-icon" width="32" height="32" viewBox="0 0 24 24" style="display: none;">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/>
+                </svg>
+            </button>
+
+           
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="bottom-bar">
+            <div class="stats">
+                <div class="stat" id="todayStat">
+                    <span class="stat-value" id="todayCount">0</span>
+                    <span class="stat-label">today</span>
+                </div>
+                <div class="stat" id="streakStat">
+                    <span class="stat-value" id="streakCount">0</span>
+                    <span class="stat-label">streak</span>
+                </div>
+                <div class="stat" id="totalStat">
+                    <span class="stat-value" id="totalHours">0</span>
+                    <span class="stat-label">hours</span>
+                </div>
+            </div>
+            <button class="icon-btn" id="settingsBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H5.78a1.65 1.65 0 0 0-1.51 1 1.65 1.65 0 0 0 .33 1.82l.04.04A10 10 0 0 0 12 17.66a10 10 0 0 0 6.36-2.62l.04-.04z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+            </button>
+        </div>
+    </main>
+
+    <!-- Mode Selection Popup -->
+    <div class="popup" id="modePopup">
+        <button class="popup-option active" data-mode="pomodoro">
+            <span class="popup-icon">🎯</span>
+            <span class="popup-text">Focus</span>
+            <span class="popup-time" id="popupFocusTime">25m</span>
+        </button>
+        <button class="popup-option" data-mode="shortBreak">
+            <span class="popup-icon">☕</span>
+            <span class="popup-text">Short Break</span>
+            <span class="popup-time" id="popupShortBreakTime">5m</span>
+        </button>
+        <button class="popup-option" data-mode="longBreak">
+            <span class="popup-icon">🌿</span>
+            <span class="popup-text">Long Break</span>
+            <span class="popup-time" id="popupLongBreakTime">15m</span>
+        </button>
+    </div>
+
+    <!-- Time Edit Popup -->
+    <div class="popup" id="timeEditPopup">
+        <div class="time-picker">
+            <div class="time-picker-header">
+                <span class="time-picker-title">Edit Time</span>
+                <button class="time-picker-close" id="closeTimePicker">×</button>
+            </div>
+            <div class="time-picker-body">
+                <input type="range" id="timePickerSlider" min="1" max="60" value="25" step="1">
+                <div class="time-picker-value">
+                    <span id="timePickerMinutes">25</span>
+                    <span>minutes</span>
+                </div>
+                <div class="time-picker-presets">
+                    <button class="preset-btn" data-time="5">5</button>
+                    <button class="preset-btn" data-time="10">10</button>
+                    <button class="preset-btn" data-time="15">15</button>
+                    <button class="preset-btn" data-time="20">20</button>
+                    <button class="preset-btn active" data-time="25">25</button>
+                    <button class="preset-btn" data-time="30">30</button>
+                    <button class="preset-btn" data-time="45">45</button>
+                    <button class="preset-btn" data-time="60">60</button>
+                </div>
+            </div>
+            <div class="time-picker-footer">
+                <button class="time-picker-btn cancel" id="cancelTimeEdit">Cancel</button>
+                <button class="time-picker-btn apply" id="applyTimeEdit">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Popup -->
+    <div class="popup" id="settingsPopup">
+        <div class="popup-section">
+            <div class="popup-row">
+                <span class="popup-label">Daily Goal</span>
+                <div class="popup-value" id="goalValue">8</div>
+                <div class="popup-slider">
+                    <input type="range" id="goalSlider" min="2" max="30" value="8" step="1">
+                </div>
+            </div>
+        </div>
+        
+        <div class="popup-section">
+            <div class="popup-row">
+                <span class="popup-label">Sound Volume</span>
+                <div class="popup-value" id="volumeValue">70%</div>
+                <div class="popup-slider">
+                    <input type="range" id="volumeSlider" min="0" max="100" value="70" step="1">
+                </div>
+            </div>
+        </div>
+        
+        <div class="popup-section">
+            <label class="popup-toggle">
+                <span class="toggle-label">Notifications</span>
+                <span class="toggle-switch">
+                    <input type="checkbox" id="notificationsToggle" checked>
+                    <span class="toggle-slider"></span>
+                </span>
+            </label>
+            <label class="popup-toggle">
+                <span class="toggle-label">Sound Effects</span>
+                <span class="toggle-switch">
+                    <input type="checkbox" id="soundToggle" checked>
+                    <span class="toggle-slider"></span>
+                </span>
+            </label>
+            <label class="popup-toggle">
+                <span class="toggle-label">Background Timer</span>
+                <span class="toggle-switch">
+                    <input type="checkbox" id="backgroundToggle" checked>
+                    <span class="toggle-slider"></span>
+                </span>
+            </label>
+            <label class="popup-toggle">
+                <span class="toggle-label">Auto-start breaks</span>
+                <span class="toggle-switch">
+                    <input type="checkbox" id="autoStartToggle">
+                    <span class="toggle-slider"></span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Simple Toast Notification -->
+    <div class="toast" id="toast">✨ Session complete!</div>
+
+    <script src="../assets/Pomodoro.js"></script>
+</body>
+</html>

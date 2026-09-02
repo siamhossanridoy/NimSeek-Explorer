@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>NimSeek Spinner </title>
+  <link rel="stylesheet" href="../assets/Spinner.css">
+  <style>
+    /* System Font Only - No External */
+    * {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <h1 class="logo-text">NS <span>Spinner</span></h1>
+      </div>
+
+      <!-- Total Spins Only -->
+      <div class="stats-sidebar">
+        <div class="stat-card-mini">
+          <div class="stat-icon">📊</div>
+          <div class="stat-info">
+            <span class="stat-label">Total Spins</span>
+            <span class="stat-number" id="totalSpinsSide">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Spins in Sidebar -->
+      <div class="sidebar-history">
+        <div class="sidebar-section-title">
+          <div class="section-icon">🕐</div>
+          <span>Recent Spins</span>
+          <button id="clearHistoryBtnSide" class="clear-history-mini" title="Clear history">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            </svg>
+          </button>
+        </div>
+        <div class="sidebar-history-list" id="sidebarHistoryList">
+          <div class="empty-history-mini">
+            <div class="empty-icon">🎲</div>
+            <p>No spins yet</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button id="settingsBtnSide" class="settings-trigger">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span>Preferences</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      
+
+      <!-- Spinner Section -->
+      <div class="spinner-section">
+        <div class="spinner-container">
+          <div class="display-ring">
+            <div class="ring-bg"></div>
+            <div class="number-wrapper">
+              <div class="number-glow-bg"></div>
+              <div class="main-number" id="numberDisplay">0</div>
+            </div>
+          </div>
+
+          <div class="spinner-controls">
+            <div class="range-selector">
+              <div class="selector-label">
+                <span>🎯</span>
+                <span>Maximum Range (2 - 1000)</span>
+              </div>
+              <div class="selector-input-group">
+                <input type="number" id="maxVal" value="100" min="2" max="1000" class="range-select">
+                <div class="input-actions">
+                  <button class="preset-mini" data-max="2">2</button>
+                  <button class="preset-mini" data-max="5">5</button>
+                  <button class="preset-mini" data-max="10">10</button>
+                  <button class="preset-mini" data-max="10">20</button>
+                  <button class="preset-mini" data-max="50">50</button>
+                  <button class="preset-mini" data-max="100">100</button>
+                  <button class="preset-mini" data-max="500">500</button>
+                  <button class="preset-mini" data-max="1000">1K</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-buttons">
+              <button id="spinBtn" class="spin-primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>SPIN</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal-new">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3>⚙️ Preferences</h3>
+          <button class="modal-close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="pref-item">
+            <div class="pref-info">
+              <span>⏩</span>
+              <span>Animation Speed</span>
+            </div>
+            <div class="pref-control">
+              <input type="range" id="durationSlider" min="0.3" max="2" step="0.1" value="1">
+              <span id="durationValue">1.0s</span>
+            </div>
+          </div>
+          <div class="pref-item">
+            <div class="pref-info">
+              <span>🔊</span>
+              <span>Sound Effects</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="soundToggle" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="pref-item">
+            <div class="pref-info">
+              <span>📳</span>
+              <span>Haptic Feedback</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="vibrationToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/Spinner.js"></script>
+</body>
+</html>

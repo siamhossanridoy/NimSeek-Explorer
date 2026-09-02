@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NimSeek Manager</title>
+    <link rel="stylesheet" href="assets/popup.css">
+</head>
+<body>
+    <div class="dashboard">
+
+        <!-- Header -->
+        <div class="header">
+            
+<div style="display:flex; align-items:center; justify-content:center; position:relative;">
+   
+                <button style="position:absolute; left:0;" title="Default New Tab"  id="btn-newtab">
+                      <img width="15px" src="icons/299638-200.png" alt="">
+                </button>
+
+               <button style="position:absolute; left: 10%;" id="openSidePanelButton">
+                        <img width="15px" src="icons/10055575.png" alt="">
+               </button>                
+    <h1 style="margin:0;">NimSeek Popup</h1>
+    
+</div>
+
+
+
+        </div>
+
+        <!-- Controls: Search, Sort, Edit Mode -->
+        <div class="controls">
+            <input type="text" id="searchBar" placeholder="Search websites or enter URL...">
+
+            <select id="sortOptions">
+                <option value="custom">Custom Order</option>
+                <option value="a-z">Sort A-Z</option>
+                <option value="z-a">Sort Z-A</option>
+                <option value="date-desc">Newest</option>
+                <option value="date-asc">Oldest</option>
+            </select>
+
+            <div class="edit-mode">
+                <input type="checkbox" id="editMode">
+                <label hidden for="editMode">⚙️</label>
+            </div>
+        </div>
+
+        <!-- Website Grid -->
+        <div class="website-grid" id="websiteGrid"></div>
+
+        <!-- Add Website Section -->
+        <div class="add-website">
+            <input type="text" id="websiteUrl" placeholder="Website URL">
+            <input type="text" id="websiteName" placeholder="Website Name">
+            <button class="add-website-btn" id="addWebsiteBtn">✔</button>
+            <button class="action-btn" id="exportBtn">↟</button>
+            <button class="action-btn" id="importBtn">↡</button>
+            <input type="file" id="importFile" accept=".json" style="display: none;">
+        </div>
+
+        <!-- Notification -->
+        <div class="notification" id="notification"></div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="assets/popup.js"></script>
+    <script type="text/javascript" src="assets/876876.js"></script>
+</body>
+</html>
