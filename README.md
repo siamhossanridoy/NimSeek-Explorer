@@ -110,12 +110,6 @@ NimSeek Explorer/
 
 ---
 
-## 📄 License
-
-Add your preferred license here (e.g. MIT).
-
----
-
 ## 👤 Author
 
 **Siam Hossan Ridoy**
