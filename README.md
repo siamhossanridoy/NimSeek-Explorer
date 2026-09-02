@@ -1,49 +1,121 @@
 # NimSeek Explorer
 
-## 🚀 আপনার ডিজিটাল ওয়ার্কফ্লোকে নতুন মাত্রা দিন
-
-**NimSeek Explorer** একটি শক্তিশালী Chrome Extension যা আপনার ব্রাউজারের New Tab-কে একটি বহুমুখী কমান্ড সেন্টারে রূপান্তরিত করে। এটি কেবল একটি Extension নয়, বরং এমন একটি সমন্বিত প্ল্যাটফর্ম যা আপনার উৎপাদনশীলতা এবং অনলাইন অভিজ্ঞতাকে অনন্যভাবে উন্নত করার জন্য ডিজাইন করা হয়েছে। এর প্রিমিয়াম ডিজাইন, সমন্বিত টুলস এবং কার্যকারিতা পেশাদার এবং সাধারণ ব্যবহারকারী উভয়ের জন্যই এটিকে অপরিহার্য করে তোলে।
+A Manifest V3 Chrome/Edge browser extension that replaces your **New Tab** page with a premium, all-in-one productivity hub — multi-engine search, a slide-out side panel browser, quick access to dozens of web apps, and a set of built-in mini-tools (Notes, Pomodoro timer, Spinner) — all wrapped in a fully customizable, theme-able interface.
 
 ---
 
-### 🔥 মূল ফিচারসমূহ
+## ✨ Features
 
-#### 🔍 মাল্টি-সার্চার: এক ক্লিকে ৪০+ প্ল্যাটফর্ম
-NimSeek Explorer-এর সবচেয়ে শক্তিশালী দিক হলো এর **Multi-Searcher**। এটি আপনাকে ৪০টিরও বেশি সার্চ ইঞ্জিন এবং সোশ্যাল মিডিয়া প্ল্যাটফর্মে একযোগে সার্চ করার ক্ষমতা দেয়। আপনার মূল্যবান সময় বাঁচিয়ে এটি আপনাকে একটি সম্পূর্ণ ও দক্ষ সার্চ অভিজ্ঞতা প্রদান করে।
-* **Search Engines**: Google, DuckDuckGo, Bing, Yahoo, Brave, Kagi, Perplexity, ChatGPT, Phind, Felo AI, iAsk, Bagoodex, Grok, Mistral.ai, Yep, You.com, Ecosia, AOL, Qwant, Yandex, Presearch, Ask.com, Baidu, Mojeek, Sogou, WebCrawler।
-* **Social Media & Communities**: Wikipedia, Reddit, Facebook, LinkedIn, Pinterest, GitHub, Dailymotion, X.com, Vimeo, Rumble, TikTok, Snapchat, Bilibili।
+### 🔍 Multi-Search
+- One search box that can query dozens of engines and platforms — Google, Bing, DuckDuckGo, Yahoo, Ecosia, Qwant, Brave, Startpage, Presearch, AOL, Yandex, Kagi, Internet Archive — plus dedicated video search across YouTube, Rumble, Dailymotion, TikTok, Bilibili, Vimeo, and Rutube
+- Type a URL directly to navigate, or type a query to search with your chosen default engine
+- Drag-and-drop support: drop a link or selected text straight onto the page to search or navigate instantly
 
-#### 🖥️ নিমসিক সাইডওপেন: মাল্টিটাস্কিংয়ের জন্য আদর্শ
-**NimSeek SideOpen** ফিচারের মাধ্যমে আপনি যেকোনো ওয়েব পেজকে ব্রাউজারের সাইডবারে নিয়ে আসতে পারবেন। এতে আপনার মাল্টিটাস্কিংয়ের অভিজ্ঞতা হয় মসৃণ ও নিরবিচ্ছিন্ন, কারণ আপনাকে বারবার ট্যাব পরিবর্তন করতে হয় না।
+### 🪟 SideOpen (Side Panel Browsing)
+- Open any link in Chrome's native **Side Panel** instead of a new tab, via a right-click context menu entry ("NimSeek SideOpen")
+- Quick-launch buttons for popular AI chat tools (Gemini, Qwen, Phind, Mistral, Manus, Z.ai, You.com, Kimi, and more) directly inside the panel
+- Remembers and restores the last-opened URL between sessions
 
-#### 🔖 পপ-আপ বুকমার্কস: দ্রুত অ্যাক্সেস এবং ম্যানেজমেন্ট
-এটি একটি উন্নত বুকমার্কিং সিস্টেম। এখানে আপনি শুধু সাইট Bookmark-ই করতে পারবেন না, বরং আপনার সংরক্ষিত URL এবং Text-গুলোও দ্রুত সার্চ করতে পারবেন। এটি ব্যবহারকারীকে মোবাইল ডিভাইসের মতো দ্রুত অ্যাক্সেসের অভিজ্ঞতা দেয়।  Ctrl+Shift+Y চাপলে পপ-আপ খুলে NimSeek Dashboard-এ সরাসরি সার্চ করা যায়, যা আপনার কাজকে আরও দ্রুত এবং সহজ করে তোলে।
+### 🪄 Popup Dashboard
+- A compact popup (`Ctrl+Shift+Y` / `Cmd+Shift+Y`) for quickly managing and launching your saved sites
+- Search, sort (A–Z, Z–A, newest, custom order), and edit your shortcut grid without leaving the popup
 
-#### 📺 মিডিয়া স্ট্যাশ প্রো: আপনার ব্যক্তিগত মিডিয়া হাব
-**MediaStash Pro** আপনার অনলাইন মিডিয়া ম্যানেজমেন্টের জন্য অপরিহার্য। এখানে আপনি YouTube ভিডিও Bookmark করে রাখতে এবং সরাসরি এখান থেকেই দেখতে পারবেন। এর পাশাপাশি, আপনি Image, Video ফাইল এবং বিভিন্ন Link-ও যুক্ত করতে পারবেন, যা আপনাকে ফাইল ডাউনলোডের ঝামেলা থেকে মুক্তি দেবে।
+### 🚀 Quick-Launch App Grid
+- One-click shortcuts to 100+ popular services out of the box — Google Workspace (Docs, Sheets, Slides, Forms, Drive, Photos, Calendar, Meet, NotebookLM, Analytics, AI Studio), AI assistants (ChatGPT, Gemini, Copilot, DeepSeek, Grok), and major social/media platforms
+- Fully customizable — add, remove, or reorder shortcuts to match your own workflow
 
----
+### 🧰 Built-in Tools
+| Tool | Description |
+|---|---|
+| **NimSeek Notes** | A lightweight, in-browser notebook for jotting down quick notes |
+| **NS Pomodoro** | A Pomodoro-style focus/break timer for productivity sessions |
+| **NS Spinner** | A random picker/decision-wheel utility |
 
-### ✨ অন্যান্য প্রোডাক্টিভিটি টুলস
-
-NimSeek Explorer-এর মধ্যে আরও কিছু অসাধারণ টুলস রয়েছে যা আপনার প্রতিদিনের কাজকে সহজ করে তোলে:
-
-* **The NS World (App World)**: একটি কিউরেটেড অ্যাপ্লিকেশন স্টোর যেখানে আপনি বিভিন্ন টুলস এবং web apps খুঁজে নিতে পারবেন।
-* **Notebook**: দ্রুত এবং সহজে নোট নেওয়ার জন্য একটি শক্তিশালী টুল, যা আপনার চিন্তা-ভাবনা ও গুরুত্বপূর্ণ তথ্যগুলো সুসংগঠিত রাখতে সাহায্য করে।
-* * **NS Mind Map**: আপনার আইডিয়া ও পরিকল্পনাগুলোকে ভিজ্যুয়াল ফরম্যাটে সাজাতে এবং সৃজনশীল চিন্তাভাবনা দ্রুত সংগঠিত করতে একটি সুবিধাজনক এবং ব্যবহার বান্ধব টুল।
-* **To-Do List**:কাআপনার কাজগুলো পরিকল্পনা করুন, অগ্রগতি ট্র্যাক করুন এবং সহজেই সম্পন্ন হওয়া কাজগুলো চিহ্নিত করুন, যাতে প্রোডাক্টিভিটি বজায় থাকে।
-* **FAQ Builder**: তথ্য সংরক্ষণ এবং মুখস্থ করার জন্য একটি সহজ, কার্যকরী এবং কাস্টমাইজেবল টুল, যা দ্রুত গুরুত্বপূর্ণ প্রশ্ন ও উত্তর তৈরি করতে সহায়তা করে।
-
----
-
-### 🎨 ডিজাইন এবং ইউজার এক্সপেরিয়েন্স
-
-* **Premium UI/UX**: এর ডিজাইন অত্যন্ত প্রিমিয়াম এবং আধুনিক, যা ব্যবহারকারীদের একটি স্বচ্ছন্দ অভিজ্ঞতা প্রদান করে।
-* **কাস্টমাইজেশন**: আপনি আপনার পছন্দ অনুযায়ী Extension-এর ব্যাকগ্রাউন্ড পরিবর্তন করতে পারবেন।
-* **৯ ডট মেনু**: একটি ৯ ডট মেনুর মাধ্যমে আপনি আপনার প্রিয় এবং প্রয়োজনীয় সকল সাইট দ্রুত অ্যাক্সেস করতে পারবেন।
+### 🎨 Personalization
+- Custom background images, gradients, and color themes with an instant-restore script (no flash of unstyled background on load)
+- Light/dark theme support, persisted via `chrome.storage.local`
+- User-script injection inside the side panel for advanced customization
 
 ---
 
-### 💡 প্রো-টিপ: Google-এর ডিফল্ট ট্যাবও ব্যবহার করুন
-NimSeek Explorer ব্যবহার করার সময়ও আপনি যদি Google-এর ডিফল্ট New Tab-এর সুবিধা উপভোগ করতে চান, তবে একটি সহজ কৌশল রয়েছে। আপনি `chrome://new-tab-page/` এই URL-টি আপনার Bookmarks bar-এ যোগ করে রাখতে পারেন। এতে আপনি যখনই প্রয়োজন মনে করবেন, তখন এক ক্লিকেই Google-এর ডিফল্ট New Tab খুলতে পারবেন।
+## 🏗️ Architecture
 
+Built entirely with vanilla HTML/CSS/JavaScript — no frameworks, no build step — on the Manifest V3 extension platform.
+
+```
+NimSeek Explorer/
+├── manifest.json          # MV3 manifest — permissions, content scripts, new-tab override
+├── background.js          # Service worker: side panel control, context menu, message routing
+├── index.html             # New Tab page (search box, app grid, background/theme engine)
+├── popup.html             # Toolbar popup dashboard
+├── side_panel.html        # Side panel browser UI ("SideOpen")
+├── assets/
+│   ├── script.js          # New Tab logic: multi-search engines, app grid, settings
+│   ├── popup.js           # Popup dashboard logic (search/sort/edit shortcuts)
+│   ├── side_panel.js       # Side panel navigation + iframe messaging
+│   ├── tabs.js / navigate.js / utils.js   # Shared navigation & helper utilities
+│   ├── detect.js          # Content script — detects popup/side-panel context per frame
+│   ├── user-script.js     # Content script (MAIN world) — runs user-defined scripts in the side panel
+│   ├── drop.js             # Drag-and-drop search/navigation handler
+│   ├── Pomodoro.js / NS_Notes.js / Spinner.js  # Built-in tool logic
+│   └── *.css               # Styling for each surface (New Tab, popup, side panel, tools)
+├── Tools/                  # Standalone HTML pages for the built-in tools
+│   ├── NS_Notes.html
+│   ├── Pomodoro.html
+│   └── Spinner.html
+├── icons/                  # Extension icons + service favicons used in the app grid
+└── fonts/
+```
+
+### How it fits together
+- **`chrome_url_overrides.newtab`** replaces the browser's New Tab with `index.html`, which renders the search box, app grid, and background/theme engine.
+- **`background.js`** (service worker) manages the side panel lifecycle, the right-click "SideOpen" context menu, and passes URLs between tabs/side panel/popup via `chrome.runtime` messaging.
+- **Content scripts** (`detect.js`, `user-script.js`) run on every page (`document_start`, all frames) to identify whether a frame is the extension's own popup/side-panel iframe and to support user-script injection there.
+- All user preferences (background, theme, search engine, saved shortcuts, notes, etc.) are persisted locally via `chrome.storage.local` / `unlimitedStorage` — nothing is sent to a remote server.
+
+---
+
+## 🔐 Permissions
+
+| Permission | Why it's needed |
+|---|---|
+| `storage`, `unlimitedStorage` | Persist settings, shortcuts, notes, and themes locally |
+| `tabs` | Track and navigate the active tab for search/navigation |
+| `history` | Power address/URL suggestions |
+| `sidePanel` | Enable the SideOpen side-panel browser |
+| `contextMenus` | Add the "NimSeek SideOpen" right-click menu entry |
+| `commands` | Support the `Ctrl+Shift+Y` keyboard shortcut |
+| `webRequest`, `declarativeNetRequestWithHostAccess` | Support in-panel browsing across sites |
+| `host_permissions: *://*/*` | Content scripts run on all pages to detect extension frames and enable side-panel features |
+
+---
+
+## ⚙️ Installation (Developer Mode)
+
+1. Clone or download this repository.
+2. Open `chrome://extensions` (or `edge://extensions`) in your browser.
+3. Enable **Developer mode** (top-right toggle).
+4. Click **Load unpacked** and select the `NimSeek Explorer` folder.
+5. Open a new tab to start using NimSeek Explorer — or press `Ctrl+Shift+Y` (`Cmd+Shift+Y` on Mac) to open the popup dashboard.
+
+**Requirements:** Chrome/Chromium-based browser, version 114 or later (per `minimum_chrome_version` in the manifest).
+
+---
+
+## 🛠️ Tech Stack
+
+- **Platform:** Chrome Extension, Manifest V3
+- **Frontend:** Vanilla JavaScript, HTML, CSS — no framework or build tooling
+- **Storage:** `chrome.storage.local` (client-side only, no backend/server)
+
+---
+
+## 📄 License
+
+Add your preferred license here (e.g. MIT).
+
+---
+
+## 👤 Author
+
+**Siam Hossan Ridoy**
